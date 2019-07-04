@@ -23,7 +23,7 @@ typedef struct
 
 
 void
-setIOWithMatrix (nnLay *curLay,float** _matrix, int rows, int elems)
+setIOWithMatrix (nnLay *curLay,float* _matrix, int rows, int elems)
 {
   // создаем матрицу и считываем в нее из матрицы параметра
   float **matrix;
@@ -38,7 +38,7 @@ setIOWithMatrix (nnLay *curLay,float** _matrix, int rows, int elems)
     {
       for (int elem = 0; elem < elems; elem++)
         {
-          matrix[row][elem] = _matrix[row][elem];
+          matrix[row][elem] = *(_matrix + row * elems + elem);
 
         }
 
@@ -57,7 +57,7 @@ printMatrix (nnLay *curLay,int rows,int elems)
       for (int elem = 0; elem < elems; elem++)
         {
           float elem_val = curLay->matrix[row][elem];
-          printf ("%d ", elem);
+          printf ("%f ", elem_val);
 
         }
       printf ("\n");
@@ -73,12 +73,16 @@ main (int argc, char** argv)
     {-0.6639823317527771, -1.148194670677185},
     {-0.959995687007904, -0.9399744272232056}
   };
-  float **p=&dense_1;// main.c:78:13: warning: initialization from incompatible pointer type [enabled by default]
-  // и ничего не показывает
+  float *p=&dense_1;
   nnLay* lay = (nnLay*) malloc (sizeof (nnLay));
 
   setIOWithMatrix (lay,p, 2,2);
   printMatrix (lay,2,2);
+/*
+--->  -0.663982 -1.148195
+      -0.959996 -0.939974
+*/
+
 
   return (EXIT_SUCCESS);
 }
