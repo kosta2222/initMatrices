@@ -21,9 +21,7 @@ typedef struct
   float* errors;
 } nnLay;
 
-/*
-float _matrix[][] main.c:25:60: error: array type has incomplete element type
-*/
+
 void
 setIOWithMatrix (nnLay *curLay,float** _matrix, int rows, int elems)
 {
@@ -78,7 +76,7 @@ main (int argc, char** argv)
   float **p=&dense_1;// main.c:78:13: warning: initialization from incompatible pointer type [enabled by default]
   // и ничего не показывает
   nnLay* lay = (nnLay*) malloc (sizeof (nnLay));
-  
+
   setIOWithMatrix (lay,p, 2,2);
   printMatrix (lay,2,2);
 
